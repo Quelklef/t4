@@ -1,0 +1,31 @@
+<html>
+<head>
+
+<title>t4</title>
+<link type="text/css" rel="stylesheet" href="css.css" />
+
+<script defer src="./elm.js"></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  const node = document.createElement('div');
+  document.body.appendChild(node);
+  const app = Elm.Main.init({ node });
+
+  app.ports.save.subscribe(json => {
+    localStorage.setItem('state', JSON.stringify(json));
+  });
+
+  if (localStorage.getItem('state') !== null) {
+    const json = JSON.parse(localStorage.getItem('state'));
+    app.ports.load.send(json);
+  }
+});
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>
